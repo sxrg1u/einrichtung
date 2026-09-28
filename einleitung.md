@@ -31,8 +31,12 @@ Diese Anleitung zeigt Schritt für Schritt, wie du auf einem neuen Windows-11-Ge
 | 12 | Projekt starten | `npm run dev` |
 | 13 | Linting ausführen | `npm run lint` |
 | 14 | Prettier installieren | `npm install --save-dev --save-exact prettier` |
+| 15 | Alias `@` in `vite.config.js` eintragen (im Block `resolve`) | `alias: [{ find: "@", replacement: fileURLToPath(new URL("./src", import.meta.url)) }]` |
+| 16 | Datei `jsconfig.json` erstellen (neben `package.json`) | `{ "compilerOptions": { "baseUrl": ".", "paths": { "@/*": ["src/*"] } }, "include": ["src"] }` |
+| 17 | Import mit Alias verwenden | `import Test from "@/components/Test"` |
 
 > Alle Befehle ab Nr. 11 im Ordner `my-react-app` ausführen.
+> Nr. 15 bis 17 sind keine Befehle, sondern Code für Dateien. Die vollständige Anleitung steht in Kapitel 6.
 
 ---
 
@@ -52,7 +56,7 @@ Node.js brauchst du, damit Vite und React auf deinem PC laufen. Mit Node.js wird
 
 ### Schritt 1: Installer herunterladen
 
-1. öffne https://nodejs.org
+1. Öffne https://nodejs.org
 2. Klicke auf den Button für die **LTS-Version** (Windows Installer, `.msi`).
 
 > LTS ist die stabile Version. Vite braucht mindestens Node.js 20.19 oder 22.12. Die aktuelle LTS-Version erfüllt das.
@@ -74,7 +78,7 @@ Node.js brauchst du, damit Vite und React auf deinem PC laufen. Mit Node.js wird
 
 ### Schritt 3: Installation prüfen
 
-öffne ein **neues** PowerShell-Fenster (ein altes Fenster kennt Node.js noch nicht) und gib ein:
+Öffne ein **neues** PowerShell-Fenster (ein altes Fenster kennt Node.js noch nicht) und gib ein:
 
 ```powershell
 node -v
@@ -99,7 +103,7 @@ Git verwaltet den Code und die Versionen deines Projekts.
 
 ### Schritt 1: Installer herunterladen
 
-1. öffne https://git-scm.com/download/win
+1. Öffne https://git-scm.com/download/win
 2. Lade den Installer **"Git for Windows/x64 Setup"** herunter.
 
 ### Schritt 2: Installieren
@@ -117,7 +121,7 @@ Git verwaltet den Code und die Versionen deines Projekts.
 
 ### Schritt 3: Installation prüfen
 
-öffne ein **neues** PowerShell-Fenster (ein bereits offenes Fenster kennt Git noch nicht) und führe aus:
+Öffne ein **neues** PowerShell-Fenster (ein bereits offenes Fenster kennt Git noch nicht) und führe aus:
 
 ```powershell
 git --version
@@ -157,7 +161,7 @@ Visual Studio Code (VS Code) ist der Editor, in dem du den Code schreibst.
 
 ### Schritt 1: Installer herunterladen
 
-1. öffne https://code.visualstudio.com
+1. Öffne https://code.visualstudio.com
 2. Klicke auf **Download for Windows**.
 
 ### Schritt 2: Installieren
@@ -193,7 +197,7 @@ In diesem Kapitel erstellst du dein erstes React-Projekt mit Vite. Danach richte
 ### Schritt 1: Ordner in VS Code öffnen
 
 1. Erstelle einen Ordner für deine Projekte, z. B. `C:\Users\DeinName\projekte`.
-2. öffne Visual Studio Code.
+2. Öffne Visual Studio Code.
 3. Klicke auf **File > Open Folder...** und wähle diesen Ordner aus.
 4. Bestätige mit **Yes, I trust the authors**.
 
@@ -229,20 +233,20 @@ In diesem Kapitel erstellst du dein erstes React-Projekt mit Vite. Danach richte
    npm install
    ```
 
-3. öffne den Projektordner in VS Code: **File > Open Folder...** und wähle `my-react-app`.
+3. Öffne den Projektordner in VS Code: **File > Open Folder...** und wähle `my-react-app`.
 
 > **Wichtig:** Ab jetzt muss `my-react-app` der geöffnete Hauptordner sein. Sonst funktionieren ESLint und Prettier nicht richtig.
 
 ### Schritt 5: Projekt starten
 
-1. öffne ein Terminal (**Terminal > New Terminal**). Der Pfad muss mit `my-react-app` enden.
+1. Öffne ein Terminal (**Terminal > New Terminal**). Der Pfad muss mit `my-react-app` enden.
 2. Starte das Projekt:
 
    ```powershell
    npm run dev
    ```
 
-3. öffne im Browser die Adresse, die im Terminal steht (meistens http://localhost:5173).
+3. Öffne im Browser die Adresse, die im Terminal steht (meistens http://localhost:5173).
 4. Du siehst die Vite-React-Startseite. Beenden kannst du das Projekt im Terminal mit `Ctrl + C`.
 
 ### Schritt 6: Auto Save aktivieren (empfohlen)
@@ -270,7 +274,7 @@ Im Projekt ist **ESLint** schon vorbereitet:
 
 ### Schritt 8: Linting ausführen
 
-1. öffne ein Terminal im Projektordner (Pfad endet mit `my-react-app`).
+1. Öffne ein Terminal im Projektordner (Pfad endet mit `my-react-app`).
 2. Führe aus:
 
    ```powershell
@@ -292,7 +296,7 @@ Damit du Fehler schon beim Schreiben siehst:
 
 ### Schritt 10: Linting testen
 
-1. öffne die Datei `src/App.jsx`.
+1. Öffne die Datei `src/App.jsx`.
 2. Füge ganz unten diese Zeile ein:
 
    ```js
@@ -316,7 +320,7 @@ Wir verwenden **Prettier**. Es ist der Standard im Frontend-Bereich.
 
 ### Schritt 12: Prettier installieren
 
-1. öffne ein Terminal im Projektordner (Pfad endet mit `my-react-app`).
+1. Öffne ein Terminal im Projektordner (Pfad endet mit `my-react-app`).
 2. Führe aus:
 
    ```powershell
@@ -351,17 +355,17 @@ Das bedeutet:
 
 ### Schritt 14: Prettier in VS Code einrichten
 
-1. öffne die Extensions (`Ctrl + Shift + X`).
+1. Öffne die Extensions (`Ctrl + Shift + X`).
 2. Suche nach **Prettier - Code formatter**.
 3. Klicke auf **Install**.
-4. öffne die Einstellungen mit `Ctrl + ,`.
+4. Öffne die Einstellungen mit `Ctrl + ,`.
 5. Suche nach **Default Formatter** und wähle **Prettier - Code formatter** aus der Liste.
 6. Suche nach **Format On Save** und setze bei **Editor: Format On Save** einen Haken.
 7. Starte VS Code neu.
 
 ### Schritt 15: Prettier testen
 
-1. öffne die Datei `src/App.jsx`.
+1. Öffne die Datei `src/App.jsx`.
 2. Verändere absichtlich die Einrückung einer Zeile, z. B. mit ein paar zusätzlichen Leerzeichen am Zeilenanfang.
 3. Speichere mit `Ctrl + S`.
 4. Prettier korrigiert die Einrückung automatisch. Dann funktioniert es.
@@ -397,7 +401,7 @@ import CustomButton from "@/components/CustomButton"
 
 ### Schritt 1: vite.config.js anpassen
 
-1. öffne die Datei `vite.config.js` (im Hauptordner von `my-react-app`).
+1. Öffne die Datei `vite.config.js` (im Hauptordner von `my-react-app`).
 2. Ersetze den ganzen Inhalt durch:
 
    ```js
@@ -452,7 +456,7 @@ Damit versteht VS Code den Alias, und die Autovervollständigung funktioniert.
    export default Test
    ```
 
-3. öffne `src/App.jsx` und füge oben bei den Imports hinzu:
+3. Öffne `src/App.jsx` und füge oben bei den Imports hinzu:
 
    ```jsx
    import Test from "@/components/Test"
@@ -471,7 +475,7 @@ Damit versteht VS Code den Alias, und die Autovervollständigung funktioniert.
    npm run dev
    ```
 
-7. öffne die Adresse aus dem Terminal im Browser. Dort steht **"Alias funktioniert"**.
+7. Öffne die Adresse aus dem Terminal im Browser. Dort steht **"Alias funktioniert"**.
 8. Beende das Projekt mit `Ctrl + C`.
 
 ### Häufige Probleme
