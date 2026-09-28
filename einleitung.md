@@ -32,7 +32,7 @@ Diese Anleitung zeigt Schritt für Schritt, wie du auf einem neuen Windows-11-Ge
 | 13 | Linting ausführen | `npm run lint` |
 | 14 | Prettier installieren | `npm install --save-dev --save-exact prettier` |
 | 15 | Alias `@` in `vite.config.js` eintragen (im Block `resolve`) | `alias: [{ find: "@", replacement: fileURLToPath(new URL("./src", import.meta.url)) }]` |
-| 16 | Datei `jsconfig.json` erstellen (neben `package.json`) | `{ "compilerOptions": { "baseUrl": ".", "paths": { "@/*": ["src/*"] } }, "include": ["src"] }` |
+| 16 | Datei `jsconfig.json` erstellen (neben `package.json`) | `{ "compilerOptions": { "paths": { "@/*": ["./src/*"] } }, "include": ["src"] }` |
 | 17 | Import mit Alias verwenden | `import Test from "@/components/Test"` |
 
 > Alle Befehle ab Nr. 11 im Ordner `my-react-app` ausführen.
@@ -430,9 +430,8 @@ Damit weiss Vite, dass `@` der Ordner `src` ist.
    ```json
    {
      "compilerOptions": {
-       "baseUrl": ".",
        "paths": {
-         "@/*": ["src/*"]
+         "@/*": ["./src/*"]
        }
      },
      "include": ["src"]
@@ -442,6 +441,44 @@ Damit weiss Vite, dass `@` der Ordner `src` ist.
 4. Speichern.
 
 Damit versteht VS Code den Alias, und die Autovervollständigung funktioniert.
+
+**Zwei Varianten der `jsconfig.json`:**
+
+| | Neue Variante (empfohlen) | Alte Variante (Schulmaterial) |
+|---|---|---|
+| Wann verwenden | Aktuelle TypeScript-Version in VS Code | Ältere TypeScript-Version (vor 6.0) |
+| `baseUrl` | nicht nötig | `"."` |
+| Pfad bei `paths` | `"./src/*"` | `"src/*"` |
+| Warnung in VS Code | keine | `Option 'baseUrl' is deprecated` |
+
+Neue Variante (die oben verwendet wird):
+
+```json
+{
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["src"]
+}
+```
+
+Alte Variante:
+
+```json
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  },
+  "include": ["src"]
+}
+```
+
+> Beide Varianten machen dasselbe: `@` steht für den Ordner `src`. Bei der alten Variante zeigt VS Code in neueren Versionen einen Fehler an. Er ist nur eine Warnung und verhindert den Alias nicht. Verwende trotzdem die neue Variante.
 
 ### Schritt 3: Alias testen
 
@@ -485,6 +522,7 @@ Damit versteht VS Code den Alias, und die Autovervollständigung funktioniert.
 | Fehler `Failed to resolve import "@/components/Test"` | Prüfen, ob `vite.config.js` genau wie oben aussieht. Danach `npm run dev` beenden (`Ctrl + C`) und neu starten. |
 | Der Alias funktioniert im Browser, aber VS Code unterstreicht den Import | Prüfen, ob `jsconfig.json` im Hauptordner liegt (neben `package.json`). Danach VS Code neu starten. |
 | Die Seite zeigt "Alias funktioniert" nicht | Prüfen, ob `<Test />` im `return` von `App` steht und `App.jsx` gespeichert ist. |
+| VS Code meldet `Option 'baseUrl' is deprecated` in `jsconfig.json` | Die neue Variante ohne `baseUrl` verwenden (siehe Schritt 2). |
 
 ---
 
